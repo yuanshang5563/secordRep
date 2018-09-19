@@ -5,31 +5,55 @@
 	<title>addUser</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap3/css/bootstrap.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap3/css/bootstrap-theme.min.css}"/>
-	<script type="text/javascript" th:src="@{/bootstrap3/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap3/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/jquery/jquery.form.js}"></script>
+	<script type="text/javascript">
+		function submitUser(){
+			var url = $("#userForm").attr("action");
+			var data = $("#userForm").serialize();
+			$.ajax({
+	            url:url,
+	            type:"post",
+	            dataType:"json",
+	            data:data,
+	            success:function(res){
+	 				alert(res.msg);
+	            },error:function() {
+	            	
+	            }
+        	});
+		}	
+	</script>
 </head>
 <body>
 	<div class="container">
 		<div class="panel panel-primary">
-		  <div class="panel-heading">Panel heading</div>
+		  <div class="panel-heading">注册</div>
   			<div class="panel-body">
-				<form class="form-horizontal">
+				<form id="userForm" name="userForm" th:action="@{/userController/addUser}" method="post" class="form-horizontal">
 				  <div class="form-group">
-				    <label for="inputEmail3" class="col-sm-4 control-label">Email:</label>
+				    <label for="userName" class="col-sm-4 control-label">姓名:</label>
 				    <div class="col-sm-4">
-				      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+				      <input type="text" class="form-control" id="userName" name="userName" placeholder="姓名">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label for="exampleInputPassword1" class="col-sm-4 control-label">Password:</label>
+				    <label for="password" class="col-sm-4 control-label">密码:</label>
 				    <div class="col-sm-4">
-				      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+				      <input type="password" class="form-control" id="password" name="password" placeholder="密码">
 				    </div>
 				  </div>		  
-		
+				  <div class="form-group">
+				    <label for="phone" class="col-sm-4 control-label">电话:</label>
+				    <div class="col-sm-4">
+				      <input type="tel" class="form-control" id="phone" name="phone" placeholder="电话">
+				    </div>
+				  </div>		
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-4">
-				      <button type="submit" class="btn btn-default">Sign in</button>
+				      <button type="reset" class="btn btn-primary">重置</button>
+				      <button type="button" class="btn btn-primary" onclick="submitUser()">提交</button>
 				    </div>
 				  </div>
 				</form>
