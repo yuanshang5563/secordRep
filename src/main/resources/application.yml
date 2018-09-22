@@ -31,22 +31,6 @@ spring:
       suffix: .html
       mode: HTML5
       encoding: UTF-8
-      content-type: text/html
-      cache: false
-    #thymelea模板配置
-    thymeleaf:
-      prefix: classpath:/templates/
-      suffix: .html
-      mode: HTML5
-      encoding: UTF-8
-      content-type: text/html
-      cache: false
-    #thymelea模板配置
-    thymeleaf:
-      prefix: classpath:/templates/
-      suffix: .html
-      mode: HTML5
-      encoding: UTF-8
       cache: false
       servlet: 
         content-type: text/html
