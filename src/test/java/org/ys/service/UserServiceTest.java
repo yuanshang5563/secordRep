@@ -24,7 +24,6 @@ public class UserServiceTest {
 		User user = new User();
 		user.setPassword("123");
 		user.setPhone("13322221111");
-		//user.setUserId(2);
 		user.setUserName("test");
 		userService.addUser(user);
 	}
