@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<head th:include="commons/header :: header"></head>
+    <title>user_form</title>
+    <meta charset="utf-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">   
+	<link type="text/css" th:href="@{/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css}" rel="stylesheet">
+	<script type="text/javascript" th:src="@{/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/plugins/datetimepicker/local/bootstrap-datetimepicker.zh-CN.js}"></script>
+	<script type="text/javascript" th:src="@{/js/appjs/manager/core_user/core_user_form.js}"></script> 
+	<script type="text/javascript">
+
+	</script>
+  </head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="coreUserForm">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">姓名：</label>
+								<div class="col-sm-8">
+									<input id="realName" name="realName" class="form-control" type="text" th:value="${coreUser.realName}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">用户名：</label>
+								<div class="col-sm-8">
+									<input id="userName" name="userName" class="form-control" type="text" th:value="${coreUser.userName}">
+								</div>
+							</div>
+							<div class="form-group" th:if="${actionType =='add'}">
+								<label class="col-sm-3 control-label">密码：</label>
+								<div class="col-sm-8">
+									<input id="password" name="password" class="form-control" type="password">
+								</div>
+							</div>
+							<div class="form-group" th:if="${actionType =='add'}">
+								<label class="col-sm-3 control-label">密码确认：</label>
+								<div class="col-sm-8">
+									<input id="comfirmPassword" name="comfirmPassword" class="form-control" type="password">
+								</div>
+							</div>	
+							<div class="form-group">
+								<label class="col-sm-3 control-label">性别:</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> 
+										<input type="radio" name="sex" value="sex.0" th:field="*{coreUser.sex}"> 未知</input>
+									</label> 
+									<label class="radio-inline"> 
+										<input type="radio" name="sex" value="sex.1" th:field="*{coreUser.sex}"> 男</input>
+									</label>
+									<label class="radio-inline"> 
+										<input type="radio" name="sex" value="sex.2" th:field="*{coreUser.sex}"> 女</input>
+									</label>	
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">生日：</label>
+								<div class="col-sm-8">
+									<input id="birthday" name="birthday" class="form-control" type="text" readonly="readonly" 
+									th:value="${#dates.format(coreUser.birthday, 'yyyy-MM-dd')}">
+								</div>
+							</div>																			
+							<div class="form-group">
+								<label class="col-sm-3 control-label">部门：</label>
+								<div class="col-sm-8">
+									<input id="coreDeptId" name="coreDeptId" class="hidden" th:value="${coreUser.coreDeptId}"> 
+									<input id="deptName" name="deptName" class="form-control" type="text"
+									style="cursor: pointer;" onclick="openDept()"
+									readonly="readonly" th:value="${deptName}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">手机：</label>
+								<div class="col-sm-8">
+									<input id="mobile" name="mobile" class="form-control" type="text" th:value="${coreUser.mobile}">
+								</div>
+							</div>							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">E-mail：</label>
+								<div class="col-sm-8">
+									<input id="email" name="email" class="form-control" type="email" th:value="${coreUser.email}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">状态:</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> 
+										<input type="radio" name="status" value="1" th:field="*{coreUser.status}"> 正常</input>
+									</label> 
+									<label class="radio-inline"> 
+										<input type="radio" name="status" value="0" th:field="*{coreUser.status}"> 禁用</input>
+									</label>
+								</div>
+							</div>
+							<input type="hidden" name="coreRoleIds" id="coreRoleIds">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">角色：</label>
+								<div class="col-sm-8">
+									<label class="checkbox-inline" th:each="role : ${coreRoles}">
+										<input name="coreRole" type="checkbox" th:value="${role.coreRoleId}" th:text="${role.roleName}" th:checked="${role.role}"></input>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">说明：</label>
+								<div class="col-sm-8">
+									<textarea rows="5" cols="63" id="comment" name="comment" class="form-control" th:text="${coreUser.comment}"></textarea>
+								</div>
+							</div>							
+							<div class="form-group" th:if="${actionType =='view'}">
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" th:value="${#dates.format(coreUser.createdTime, 'yyyy-MM-dd HH:mm:ss')}">
+								</div>
+							</div>
+							<div class="form-group" th:if="${actionType =='view'}">
+								<label class="col-sm-3 control-label">修改时间：</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" th:value="${#dates.format(coreUser.modifiedTime, 'yyyy-MM-dd HH:mm:ss')}">
+								</div>
+							</div>							
+						  	<input type="hidden" th:value="${coreUser.coreUserId}" name="coreUserId" id="coreUserId">
+						  	<input type="hidden" th:value="${actionType}" id="actionType">
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<div th:if="${actionType !='view'}">
+										<button type="button" id="coreUserBtn" class="btn btn-primary">提交</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

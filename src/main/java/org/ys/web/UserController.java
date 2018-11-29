@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.ys.common.util.RequsetUtils;
+import org.ys.common.utils.RequsetUtils;
 import org.ys.model.User;
 import org.ys.model.UserExample;
 import org.ys.model.UserExample.Criteria;

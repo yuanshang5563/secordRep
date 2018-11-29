@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<head th:include="commons/header :: header"></head>
+    <title>coreParameterForm</title>
+    <meta charset="utf-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<script type="text/javascript" th:src="@{/js/appjs/manager/core_parameter/core_parameter_form.js}"></script> 
+  </head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>   </h5>
+					</div>
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="coreParameterForm">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">参数名：</label>
+								<div class="col-sm-8">
+									<input id="paramName" name="paramName" class="form-control" type="text" th:value="${coreParameter.paramName}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">参数类型：</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> 
+										<input type="radio" name="paramType" value="sys"> 系统参数</input>
+									</label> 
+									<label class="radio-inline"> 
+										<input type="radio" name="paramType" value="usr"> 用户参数</input>
+									</label> 																		
+									<script>$("input[name='paramType'][value='${coreParameter.paramType}']").attr("checked",true); </script>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">参数代码：</label>
+								<div class="col-sm-8">
+									<input id="paramCode" name="paramCode" class="form-control" type="text" th:value="${coreParameter.paramCode}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">参数值：</label>
+								<div class="col-sm-8">
+									<input id="paramValue" name="paramValue" class="form-control" type="text" th:value="${coreParameter.paramValue}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">参数说明：</label>
+								<div class="col-sm-8">
+									<textarea id="paramDesc" name="paramDesc" rows="5" cols="63" class="form-control">${coreParameter.paramDesc}</textarea>
+								</div>
+							</div>																					
+							<div class="form-group" th:if="${actionType !='view'}">
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" th:value="${coreParameter.createdTime}">
+								</div>
+							</div>
+							<div class="form-group" th:if="${actionType !='view'}">
+								<label class="col-sm-3 control-label">修改时间：</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" th:value="${coreParameter.modifiedTime}">
+								</div>
+							</div>							
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+								  	<input type="hidden" th:value="${coreParameter.coreParamId}" name="coreParamId" id="coreParamId">
+								  	<input type="hidden" th:value="${actionType}" id="actionType">		
+								  	<div th:if="${actionType !='view'}">					
+										<button type="button" id="coreParameterBtn" class="btn btn-primary">提交</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

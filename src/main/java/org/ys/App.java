@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-@MapperScan("org.ys.dao")
+@MapperScan({"org.ys.dao","org.ys.core.dao"})
 public class App 
 {
     public static void main( String[] args )
