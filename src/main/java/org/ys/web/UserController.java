@@ -29,14 +29,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/addUserPage")
-	public ModelAndView addUserPage(){
-		return new ModelAndView("/manager/user/addUser");
+	@RequestMapping("/userForm")
+	public ModelAndView userForm(){
+		return new ModelAndView("/manager/user/user_form");
 	}
 	
-	@RequestMapping("/addUser")
+	@RequestMapping("/saveUserForm")
 	@ResponseBody
-	public Map<String,Object> addUser(HttpServletRequest request){
+	public Map<String,Object> saveUserForm(HttpServletRequest request){
 		String msg = null;
 		int result = 0;
 		try {

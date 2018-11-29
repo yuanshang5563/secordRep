@@ -2,29 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
+	<head th:include="commons/header :: header"></head>
 	<title>addUser</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap3/css/bootstrap.min.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap3/css/bootstrap-theme.min.css}"/>
-	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/bootstrap3/js/bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{/jquery/jquery.form.js}"></script>
-	<script type="text/javascript">
-		function submitUser(){
-			var url = $("#userForm").attr("action");
-			var data = $("#userForm").serialize();
-			$.ajax({
-	            url:url,
-	            type:"post",
-	            dataType:"json",
-	            data:data,
-	            success:function(res){
-	 				alert(res.msg);
-	            },error:function() {
-	            	
-	            }
-        	});
-		}	
-	</script>
+	<script type="text/javascript" th:src="@{/js/appjs/user_form.js}"></script>
 </head>
 <body>
 	<div class="container">
