@@ -30,6 +30,11 @@ public class LoginController {
 		return map;
 	}
 	
+	@RequestMapping("/loginPage")
+	public String loginPage(){
+		return "login";
+	}
+	
 	@RequestMapping("/logout")
 	public String logout(){
 		return "login";

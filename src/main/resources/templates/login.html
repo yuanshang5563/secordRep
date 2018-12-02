@@ -31,6 +31,9 @@
 
 
 <script type="text/javascript">
+/*<![CDATA[*/
+root = /*[[@{/}]]*/ '';
+/*]]>*/
     $(document).ready(function () {
         $("#login").on('click',function(){$("#loginForm").submit();});
         validateRule();
@@ -45,14 +48,14 @@
     function login() {
         $.ajax({
             type: "POST",
-            url: "${root}/LoginController/login",
+            url: root+"/login",
             data: $('#loginForm').serialize(),
             success: function (res) {
-                 if (res.success == 1) {
+                 if (res.success == true) {
                     var index = layer.load(1, {
                         shade: [0.1,'#fff'] //0.1透明度的白色背景
                     });
-                    parent.location.href = '${root}/manager/core/CoreManagerController/main';
+                    parent.location.href = root+'/manager/core/CoreManagerController/main';
                 } else {
                     layer.msg(res.msg);
                 }
