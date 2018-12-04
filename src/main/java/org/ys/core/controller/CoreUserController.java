@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.ys.common.constant.CoreMenuType;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.DateTimeConverter;
 import org.ys.common.utils.RequsetUtils;

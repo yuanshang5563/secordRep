@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.ys.common.constant.CoreMenuType;
 import org.ys.common.domain.Tree;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.DateTimeConverter;
@@ -25,6 +24,7 @@ import org.ys.core.model.CoreDictionariesGroup;
 import org.ys.core.model.CoreDictionariesGroupExample;
 import org.ys.core.model.CoreDictionariesGroupExample.Criteria;
 import org.ys.core.service.CoreDictionariesGroupService;
+import org.ys.security.RequiredPermission;
 
 @Controller
 @RequestMapping("/manager/core/CoreDictionariesGroupController")
@@ -32,12 +32,14 @@ public class CoreDictionariesGroupController {
 	@Autowired
 	private CoreDictionariesGroupService coreDictionariesGroupService;
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIESGROUP_LIST")
 	@RequestMapping("/coreDictionariesGroupList")
 	public ModelAndView coreDictionariesGroupList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_dictionaries_group/core_dictionaries_group_list");
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DICTIONARIESGROUP_ADD_EDIT")
 	@RequestMapping("/coreDictionariesGroupForm")
 	public ModelAndView coreDictionariesGroupForm(Long coreDictGroupId,String actionType) throws Exception {
 		CoreDictionariesGroup coreDictionariesGroup = null;
@@ -63,6 +65,7 @@ public class CoreDictionariesGroupController {
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DICTIONARIESGROUP_ADD_EDIT")
 	@RequestMapping("/saveCoreDictionariesGroupForm")
 	@ResponseBody
 	public Map<String,Object> saveCoreDictionariesGroupForm(HttpServletRequest request)throws Exception {
@@ -115,6 +118,7 @@ public class CoreDictionariesGroupController {
 		return map;
 	}  
 	
+	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_DICTIONARIESGROUP_DEL")
 	@RequestMapping("/deleteCoreDictionariesGroup")
 	@ResponseBody
 	public Map<String,Object> deleteCoreDictionariesGroup(Long coreDictGroupId)throws Exception {
@@ -160,6 +164,7 @@ public class CoreDictionariesGroupController {
 		return map;
 	} 
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIESGROUP_LIST")
 	@RequestMapping("/coreDictionariesGroupListJsonData")
 	@ResponseBody
 	public Map<String,Object> getCoreDictionariesGroupListJsonData(HttpServletRequest request)throws Exception {
@@ -196,6 +201,7 @@ public class CoreDictionariesGroupController {
 		return maps;
 	}	
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIESGROUP_LIST")
 	@RequestMapping("/coreDictionariesGroupListJsonDataNoPage")
 	@ResponseBody
 	public List<CoreDictionariesGroup> coreDictionariesGroupListJsonDataNoPage(HttpServletRequest request)throws Exception {

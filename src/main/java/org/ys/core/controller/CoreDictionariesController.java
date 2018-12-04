@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.ys.common.constant.CoreMenuType;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.DateTimeConverter;
 import org.ys.common.utils.RequsetUtils;
@@ -27,6 +26,7 @@ import org.ys.core.model.CoreDictionariesExample.Criteria;
 import org.ys.core.model.CoreDictionariesGroup;
 import org.ys.core.service.CoreDictionariesGroupService;
 import org.ys.core.service.CoreDictionariesService;
+import org.ys.security.RequiredPermission;
 
 @Controller
 @RequestMapping("/manager/core/CoreDictionariesController")
@@ -38,12 +38,14 @@ public class CoreDictionariesController {
 	@Autowired
 	private CoreDictionariesGroupService coreDictionariesGroupService;
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIES_LIST")
 	@RequestMapping("/coreDictionariesList")
 	public ModelAndView coreDictionariesList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_dictionaries/core_dictionaries_list");
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DICTIONARIES_ADD_EDIT")
 	@RequestMapping("/coreDictionariesForm")
 	public ModelAndView coreDictionariesForm(Long coreDictId,String actionType) throws Exception {
 		CoreDictionaries coreDictionaries = null;
@@ -66,6 +68,7 @@ public class CoreDictionariesController {
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DICTIONARIES_ADD_EDIT")
 	@RequestMapping("/saveCoreDictionariesForm")
 	@ResponseBody
 	public Map<String,Object> saveCoreDictionariesForm(HttpServletRequest request)throws Exception {
@@ -100,6 +103,7 @@ public class CoreDictionariesController {
 		return map;
 	}  
 	
+	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_DICTIONARIES_DEL")
 	@RequestMapping("/deleteCoreDictionaries")
 	@ResponseBody
 	public Map<String,Object> deleteCoreDictionaries(Long coreDictId)throws Exception {
@@ -145,6 +149,7 @@ public class CoreDictionariesController {
 		return map;
 	} 
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIES_LIST")
 	@RequestMapping("/coreDictionariesListJsonData")
 	@ResponseBody
 	public Map<String,Object> coreDictionariesListJsonData(HttpServletRequest request)throws Exception {

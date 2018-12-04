@@ -39,6 +39,25 @@ spring:
         force: true
         charset: UTF-8
         enabled: true
+# redis配置，以下有默认配置的也可以使用默认配置
+    redis:
+      #数据库索引
+      database: 0
+      host: 127.0.0.1
+      port: 6379
+      password: 123456
+      jedis:
+        pool:
+          #最大连接数
+          max-active: 8
+          #最大阻塞等待时间(负数表示没限制)
+          max-wait: -1
+          #最大空闲
+          max-idle: 8
+          #最小空闲
+          min-idle: 0
+      #连接超时时间
+      timeout: 10000       
         
 ## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:

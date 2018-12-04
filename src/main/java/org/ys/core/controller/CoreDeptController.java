@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.ys.common.constant.CoreMenuType;
 import org.ys.common.domain.Tree;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.DateTimeConverter;
@@ -25,6 +24,7 @@ import org.ys.core.model.CoreDept;
 import org.ys.core.model.CoreDeptExample;
 import org.ys.core.model.CoreDeptExample.Criteria;
 import org.ys.core.service.CoreDeptService;
+import org.ys.security.RequiredPermission;
 
 @Controller
 @RequestMapping("/manager/core/CoreDeptController")
@@ -32,12 +32,14 @@ public class CoreDeptController {
 	@Autowired
 	private CoreDeptService coreDeptService;
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DEPT_LIST")
 	@RequestMapping("/coreDeptList")
 	public ModelAndView coreDeptList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_dept/core_dept_list");
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DEPT_ADD_EDIT")
 	@RequestMapping("/coreDeptForm")
 	public ModelAndView coreDeptForm(Long coreDeptId,String actionType) throws Exception {
 		CoreDept coreDept = null;
@@ -63,6 +65,7 @@ public class CoreDeptController {
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DEPT_ADD_EDIT")
 	@RequestMapping("/saveCoreDeptForm")
 	@ResponseBody
 	public Map<String,Object> saveCoreDeptForm(HttpServletRequest request)throws Exception {
@@ -97,6 +100,7 @@ public class CoreDeptController {
 		return map;
 	}  
 	
+	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_DEPT_DEL")
 	@RequestMapping("/deleteCoreDept")
 	@ResponseBody
 	public Map<String,Object> deleteCoreDept(Long coreDeptId)throws Exception {
@@ -142,6 +146,7 @@ public class CoreDeptController {
 		return map;
 	} 
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DEPT_LIST")
 	@RequestMapping("/coreDeptListJsonData")
 	@ResponseBody
 	public Map<String,Object> getCoreDeptListJsonData(HttpServletRequest request)throws Exception {
@@ -178,6 +183,7 @@ public class CoreDeptController {
 		return maps;
 	}	
 	
+	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DEPT_LIST")
 	@RequestMapping("/coreDeptListJsonDataNoPage")
 	@ResponseBody
 	public List<CoreDept> coreDeptListJsonDataNoPage(HttpServletRequest request)throws Exception {
