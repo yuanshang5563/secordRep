@@ -52,12 +52,7 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .csrf().disable();
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
-    }
-
-//	@Bean
-//	public static NoOpPasswordEncoder passwordEncoder() {
-//	    return NoOpPasswordEncoder.getInstance();
-//	}    
+    }  
 
 	@Bean
 	public static BCryptPasswordEncoder passwordEncoder() {

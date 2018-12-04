@@ -32,14 +32,14 @@ public class CoreDictionariesGroupController {
 	@Autowired
 	private CoreDictionariesGroupService coreDictionariesGroupService;
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIESGROUP_LIST")
+	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_DICTIONARIESGROUP_LIST_PAGE")
 	@RequestMapping("/coreDictionariesGroupList")
 	public ModelAndView coreDictionariesGroupList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_dictionaries_group/core_dictionaries_group_list");
 		return model;
 	}
 	
-	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DICTIONARIESGROUP_ADD_EDIT")
+	@RequiredPermission(permissionName="新增和修改页面",permission="ROLE_CORE_DICTIONARIESGROUP_ADD_EDIT_PAGE")
 	@RequestMapping("/coreDictionariesGroupForm")
 	public ModelAndView coreDictionariesGroupForm(Long coreDictGroupId,String actionType) throws Exception {
 		CoreDictionariesGroup coreDictionariesGroup = null;
@@ -164,7 +164,7 @@ public class CoreDictionariesGroupController {
 		return map;
 	} 
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIESGROUP_LIST")
+	@RequiredPermission(permissionName="列表数据1",permission="ROLE_CORE_DICTIONARIESGROUP_LIST1")
 	@RequestMapping("/coreDictionariesGroupListJsonData")
 	@ResponseBody
 	public Map<String,Object> getCoreDictionariesGroupListJsonData(HttpServletRequest request)throws Exception {
@@ -201,7 +201,7 @@ public class CoreDictionariesGroupController {
 		return maps;
 	}	
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIESGROUP_LIST")
+	@RequiredPermission(permissionName="列表数据2",permission="ROLE_CORE_DICTIONARIESGROUP_LIST2")
 	@RequestMapping("/coreDictionariesGroupListJsonDataNoPage")
 	@ResponseBody
 	public List<CoreDictionariesGroup> coreDictionariesGroupListJsonDataNoPage(HttpServletRequest request)throws Exception {

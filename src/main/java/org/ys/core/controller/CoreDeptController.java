@@ -32,14 +32,14 @@ public class CoreDeptController {
 	@Autowired
 	private CoreDeptService coreDeptService;
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DEPT_LIST")
+	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_DEPT_LIST_PAGE")
 	@RequestMapping("/coreDeptList")
 	public ModelAndView coreDeptList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_dept/core_dept_list");
 		return model;
 	}
 	
-	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DEPT_ADD_EDIT")
+	@RequiredPermission(permissionName="新增和修改页面",permission="ROLE_CORE_DEPT_ADD_EDIT_PAGE")
 	@RequestMapping("/coreDeptForm")
 	public ModelAndView coreDeptForm(Long coreDeptId,String actionType) throws Exception {
 		CoreDept coreDept = null;
@@ -146,7 +146,7 @@ public class CoreDeptController {
 		return map;
 	} 
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DEPT_LIST")
+	@RequiredPermission(permissionName="列表数据1",permission="ROLE_CORE_DEPT_LIST1")
 	@RequestMapping("/coreDeptListJsonData")
 	@ResponseBody
 	public Map<String,Object> getCoreDeptListJsonData(HttpServletRequest request)throws Exception {
@@ -183,7 +183,7 @@ public class CoreDeptController {
 		return maps;
 	}	
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DEPT_LIST")
+	@RequiredPermission(permissionName="列表数据2",permission="ROLE_CORE_DEPT_LIST2")
 	@RequestMapping("/coreDeptListJsonDataNoPage")
 	@ResponseBody
 	public List<CoreDept> coreDeptListJsonDataNoPage(HttpServletRequest request)throws Exception {

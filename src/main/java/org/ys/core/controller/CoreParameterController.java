@@ -23,6 +23,7 @@ import org.ys.core.model.CoreParameter;
 import org.ys.core.model.CoreParameterExample;
 import org.ys.core.model.CoreParameterExample.Criteria;
 import org.ys.core.service.CoreParameterService;
+import org.ys.security.RequiredPermission;
 
 @Controller
 @RequestMapping("/manager/core/CoreParameterController")
@@ -31,12 +32,14 @@ public class CoreParameterController {
 	@Autowired
 	private CoreParameterService coreParameterService;
 	
+	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_PARAMETER_LIST_PAGE")
 	@RequestMapping("/coreParameterList")
 	public ModelAndView coreParameterList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_parameter/core_parameter_list");
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改页面",permission="ROLE_CORE_PARAMETER_ADD_EDIT_PAGE")
 	@RequestMapping("/coreParameterForm")
 	public ModelAndView coreParameterForm(Long coreParamId,String actionType) throws Exception {
 		CoreParameter coreParameter = null;
@@ -51,6 +54,7 @@ public class CoreParameterController {
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_PARAMETER_ADD_EDIT")
 	@RequestMapping("/saveCoreParameterForm")
 	@ResponseBody
 	public Map<String,Object> saveCoreParameterForm(HttpServletRequest request)throws Exception {
@@ -109,6 +113,7 @@ public class CoreParameterController {
 		return map;
 	}  
 	
+	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_PARAMETER_DEL")
 	@RequestMapping("/deleteCoreParameter")
 	@ResponseBody
 	public Map<String,Object> deleteCoreParameter(Long coreParamId)throws Exception {
@@ -154,6 +159,7 @@ public class CoreParameterController {
 		return map;
 	} 
 	
+	@RequiredPermission(permissionName="列表数据",permission="ROLE_CORE_PARAMETER_LIST")
 	@RequestMapping("/coreParameterListJsonData")
 	@ResponseBody
 	public Map<String,Object> coreParameterListJsonData(HttpServletRequest request)throws Exception {

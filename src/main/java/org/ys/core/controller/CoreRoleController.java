@@ -23,6 +23,7 @@ import org.ys.core.model.CoreRole;
 import org.ys.core.model.CoreRoleExample;
 import org.ys.core.model.CoreRoleExample.Criteria;
 import org.ys.core.service.CoreRoleService;
+import org.ys.security.RequiredPermission;
 
 @Controller
 @RequestMapping("/manager/core/CoreRoleController")
@@ -31,12 +32,14 @@ public class CoreRoleController {
 	@Autowired
 	private CoreRoleService coreRoleService;
 	
+	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_ROLE_LIST_PAGE")
 	@RequestMapping("/coreRoleList")
 	public ModelAndView coreRoleList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_role/core_role_list");
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改页面",permission="ROLE_CORE_ROLE_ADD_EDIT_PAGE")
 	@RequestMapping("/coreRoleForm")
 	public ModelAndView coreRoleForm(Long coreRoleId,String actionType) throws Exception {
 		CoreRole coreRole = null;
@@ -52,6 +55,7 @@ public class CoreRoleController {
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_ROLE_ADD_EDIT")
 	@RequestMapping("/saveCoreRoleForm")
 	@ResponseBody
 	public Map<String,Object> saveCoreRoleForm(HttpServletRequest request)throws Exception {
@@ -111,6 +115,7 @@ public class CoreRoleController {
 		return map;
 	}  
 	
+	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_ROLE_DEL")
 	@RequestMapping("/deleteCoreRole")
 	@ResponseBody
 	public Map<String,Object> deleteCoreRole(Long coreRoleId)throws Exception {
@@ -156,6 +161,7 @@ public class CoreRoleController {
 		return map;
 	} 
 	
+	@RequiredPermission(permissionName="列表数据",permission="ROLE_CORE_ROLE_LIST")
 	@RequestMapping("/coreRoleListJsonData")
 	@ResponseBody
 	public Map<String,Object> coreRoleListJsonData(HttpServletRequest request)throws Exception {

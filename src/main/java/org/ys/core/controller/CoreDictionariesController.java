@@ -38,14 +38,14 @@ public class CoreDictionariesController {
 	@Autowired
 	private CoreDictionariesGroupService coreDictionariesGroupService;
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIES_LIST")
+	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_DICTIONARIES_LIST_PAGE")
 	@RequestMapping("/coreDictionariesList")
 	public ModelAndView coreDictionariesList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_dictionaries/core_dictionaries_list");
 		return model;
 	}
 	
-	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_DICTIONARIES_ADD_EDIT")
+	@RequiredPermission(permissionName="新增和修改页面",permission="ROLE_CORE_DICTIONARIES_ADD_EDIT_PAGE")
 	@RequestMapping("/coreDictionariesForm")
 	public ModelAndView coreDictionariesForm(Long coreDictId,String actionType) throws Exception {
 		CoreDictionaries coreDictionaries = null;
@@ -149,7 +149,7 @@ public class CoreDictionariesController {
 		return map;
 	} 
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_DICTIONARIES_LIST")
+	@RequiredPermission(permissionName="列表数据",permission="ROLE_CORE_DICTIONARIES_LIST")
 	@RequestMapping("/coreDictionariesListJsonData")
 	@ResponseBody
 	public Map<String,Object> coreDictionariesListJsonData(HttpServletRequest request)throws Exception {

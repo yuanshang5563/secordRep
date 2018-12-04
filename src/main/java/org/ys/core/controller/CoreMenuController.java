@@ -32,14 +32,14 @@ public class CoreMenuController {
 	@Autowired
 	private CoreMenuService coreMenuService;
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_MENU_LIST")
+	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_MENU_LIST_PAGE")
 	@RequestMapping("/coreMenuList")
 	public ModelAndView coreMenuList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_menu/core_menu_list");
 		return model;
 	}
 	
-	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_MENU_ADD_EDIT")
+	@RequiredPermission(permissionName="新增和修改页面",permission="ROLE_CORE_MENU_ADD_EDIT_PAGE")
 	@RequestMapping("/coreMenuForm")
 	public ModelAndView coreMenuForm(Long coreMenuId,String actionType) throws Exception {
 		CoreMenu coreMenu = null;
@@ -146,7 +146,7 @@ public class CoreMenuController {
 		return map;
 	} 
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_MENU_LIST")
+	@RequiredPermission(permissionName="列表数据1",permission="ROLE_CORE_MENU_LIST1")
 	@RequestMapping("/coreMenuListJsonData")
 	@ResponseBody
 	public Map<String,Object> coreMenuListJsonData(HttpServletRequest request)throws Exception {
@@ -183,7 +183,7 @@ public class CoreMenuController {
 		return maps;
 	}	
 	
-	@RequiredPermission(permissionName="列表",permission="ROLE_CORE_MENU_LIST")
+	@RequiredPermission(permissionName="列表数据2",permission="ROLE_CORE_MENU_LIST2")
 	@RequestMapping("/coreMenuListJsonDataNoPage")
 	@ResponseBody
 	public List<CoreMenu> coreMenuListJsonDataNoPage(HttpServletRequest request)throws Exception {

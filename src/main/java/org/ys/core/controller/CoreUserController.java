@@ -29,6 +29,7 @@ import org.ys.core.model.CoreUserExample.Criteria;
 import org.ys.core.service.CoreDeptService;
 import org.ys.core.service.CoreRoleService;
 import org.ys.core.service.CoreUserService;
+import org.ys.security.RequiredPermission;
 
 @Controller
 @RequestMapping("/manager/core/CoreUserController")
@@ -42,12 +43,14 @@ public class CoreUserController {
 	@Autowired
 	private CoreDeptService coreDeptService;
 	
+	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_USER_LIST_PAGE")
 	@RequestMapping("/coreUserList")
 	public ModelAndView coreUserList() throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_user/core_user_list");
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改页面",permission="ROLE_CORE_USER_ADD_EDIT_PAGE")
 	@RequestMapping("/coreUserForm")
 	public ModelAndView coreUserForm(Long coreUserId,String actionType) throws Exception {
 		CoreUser coreUser = null;
@@ -84,6 +87,7 @@ public class CoreUserController {
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="新增和修改",permission="ROLE_CORE_USER_ADD_EDIT")
 	@RequestMapping("/saveCoreUserForm")
 	@ResponseBody
 	public Map<String,Object> saveCoreUserForm(HttpServletRequest request)throws Exception {
@@ -125,6 +129,7 @@ public class CoreUserController {
 		return map;
 	}  
 	
+	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_USER_ADD_DEL")
 	@RequestMapping("/deleteCoreUser")
 	@ResponseBody
 	public Map<String,Object> deleteCoreUser(Long coreUserId)throws Exception {
@@ -170,6 +175,7 @@ public class CoreUserController {
 		return map;
 	} 
 	
+	@RequiredPermission(permissionName="列表数据",permission="ROLE_CORE_USER_LIST")
 	@RequestMapping("/coreUserListJsonData")
 	@ResponseBody
 	public Map<String,Object> coreUserListJsonData(HttpServletRequest request)throws Exception {
@@ -213,6 +219,7 @@ public class CoreUserController {
 		return maps;
 	}	
 	
+	@RequiredPermission(permissionName="密码重设页面",permission="ROLE_CORE_USER_RESET_PAGE")
 	@RequestMapping("/resetPwd")
 	public ModelAndView resetPwd(String coreUserId) throws Exception {
 		ModelAndView model = new ModelAndView("/manager/core_user/core_user_reset_pwd");
@@ -220,6 +227,7 @@ public class CoreUserController {
 		return model;
 	}
 	
+	@RequiredPermission(permissionName="密码重设",permission="ROLE_CORE_USER_RESET")
 	@RequestMapping("/saveResetPwd")
 	@ResponseBody
 	public Map<String,Object> saveResetPwd(HttpServletRequest request)throws Exception {
