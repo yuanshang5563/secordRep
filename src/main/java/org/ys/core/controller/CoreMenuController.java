@@ -14,6 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.ys.common.constant.CoreMenuType;
+import org.ys.common.constant.CoreMenuTypeContant;
+import org.ys.common.constant.RedisKeyContant;
 import org.ys.common.domain.Tree;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.DateTimeConverter;
@@ -49,6 +51,9 @@ public class CoreMenuController {
 	private CoreRoleMenuService coreRoleMenuService;		
 	@Autowired
 	private RequestMappingHandlerMapping requestMappingHandlerMapping;	
+	@SuppressWarnings("rawtypes")
+	@Autowired
+    private RedisTemplate redisTemplate ;
 	
 	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_MENU_LIST_PAGE")
 	@RequestMapping("/coreMenuList")
@@ -215,6 +220,7 @@ public class CoreMenuController {
 		return menuList;
 	}	
 	
+	@SuppressWarnings("unchecked")
 	@RequiredPermission(permissionName="加载权限",permission="ROLE_CORE_MENU_LOAD_PERMISSIONS")
 	@RequestMapping("/reLoadPermissions")
 	@ResponseBody
@@ -236,7 +242,7 @@ public class CoreMenuController {
 			//一次找出所有菜单权限
 			Map<String,CoreMenu> existParentMenu = new HashMap<String,CoreMenu>();
 			CoreMenuExample example = new CoreMenuExample();
-			example.createCriteria().andMenuTypeEqualTo(CoreMenuType.MENU_TYPE_MENU);
+			example.createCriteria().andMenuTypeEqualTo(CoreMenuTypeContant.MENU_TYPE_MENU);
 			List<CoreMenu> parentMenuList = coreMenuService.queryCoreMenusByExample(example);
 			if(null != parentMenuList && parentMenuList.size() > 0) {
 				for (CoreMenu parentMenu : parentMenuList) {
@@ -251,7 +257,7 @@ public class CoreMenuController {
 			//找到所有权限
 			Map<String,CoreMenu> existPermissions = new HashMap<String,CoreMenu>();
 			example.clear();
-			example.createCriteria().andMenuTypeEqualTo(CoreMenuType.MENU_TYPE_PERMISSION);
+			example.createCriteria().andMenuTypeEqualTo(CoreMenuTypeContant.MENU_TYPE_PERMISSION);
 			List<CoreMenu> buttonList = coreMenuService.queryCoreMenusByExample(example);
 			if(null != buttonList && buttonList.size() > 0) {
 				for (CoreMenu button : buttonList) {
@@ -285,7 +291,7 @@ public class CoreMenuController {
 							buttonMenu.setParentCoreMenuId(parentMenu.getCoreMenuId());
 						}
 						buttonMenu.setPermission(permission);
-						buttonMenu.setMenuType(CoreMenuType.MENU_TYPE_PERMISSION);
+						buttonMenu.setMenuType(CoreMenuTypeContant.MENU_TYPE_PERMISSION);
 						buttonMenu.setMenuName(permissionName);
 						if(permission.contains("LIST")) {
 							buttonMenu.setOrderNum(0);
@@ -306,8 +312,7 @@ public class CoreMenuController {
 				}
 			}
 			//将所有权限菜单目录都付给super_admin
-			example.clear();
-			List<CoreMenu> allMenuList = coreMenuService.queryCoreMenusByExample(example);
+			List<CoreMenu> allMenuList = (List<CoreMenu>) redisTemplate.opsForList().leftPop(RedisKeyContant.CORE_MENU_ALL_MENUS);
 			CoreRoleExample roleExample = new CoreRoleExample();
 			roleExample.createCriteria().andRoleEqualTo("super_admin");
 			List<CoreRole> roles = coreRoleService.queryCoreRolesByExample(roleExample);

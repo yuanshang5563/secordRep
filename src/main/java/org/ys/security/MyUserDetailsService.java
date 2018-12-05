@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.ys.common.constant.CoreMenuType;
+import org.ys.common.constant.CoreMenuTypeContant;
 import org.ys.core.model.CoreMenu;
 import org.ys.core.model.CoreUser;
 import org.ys.core.model.CoreUserExample;
@@ -50,7 +49,7 @@ public class MyUserDetailsService implements UserDetailsService {
 			if(null != coreMenuList && coreMenuList.size() > 0) {
 				authList = new ArrayList<>();
 				for (CoreMenu coreMenu : coreMenuList) {
-					if(CoreMenuType.MENU_TYPE_PERMISSION.equals(coreMenu.getMenuType()) && StringUtils.isNotEmpty(coreMenu.getPermission())) {
+					if(CoreMenuTypeContant.MENU_TYPE_PERMISSION.equals(coreMenu.getMenuType()) && StringUtils.isNotEmpty(coreMenu.getPermission())) {
 						authList.add(new SimpleGrantedAuthority(coreMenu.getPermission()));
 					}
 				}

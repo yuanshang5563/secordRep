@@ -1,7 +1,7 @@
 package org.ys.common.constant;
 
-public class CoreMenuType {
-	private CoreMenuType() {}
+public class CoreMenuTypeContant {
+	private CoreMenuTypeContant() {}
 	
 	public static final String MENU_TYPE_NODE = "0";
 	

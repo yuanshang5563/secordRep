@@ -104,7 +104,7 @@
 								<label class="col-sm-3 control-label">角色：</label>
 								<div class="col-sm-8">
 									<label class="checkbox-inline" th:each="role : ${coreRoles}">
-										<input name="coreRole" type="checkbox" th:value="${role.coreRoleId}" th:text="${role.roleName}" th:checked="${role.role}"></input>
+										<input name="coreRole" type="checkbox" th:value="${role.coreRoleId}" th:text="${role.roleName}" th:checked="${role.checkFlag}"></input>
 									</label>
 								</div>
 							</div>
@@ -127,7 +127,7 @@
 								</div>
 							</div>							
 						  	<input type="hidden" th:value="${coreUser.coreUserId}" name="coreUserId" id="coreUserId">
-						  	<input type="hidden" th:value="${actionType}" id="actionType">
+						  	<input type="hidden" th:value="${actionType}" name="actionType" id="actionType">
 							<div class="form-group">
 								<div class="col-sm-8 col-sm-offset-3">
 									<div th:if="${actionType !='view'}">

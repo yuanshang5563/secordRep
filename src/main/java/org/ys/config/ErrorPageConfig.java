@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * 错误页面的配置
+ * @author Administrator
+ *
  */
 @Component
 public class ErrorPageConfig implements ErrorPageRegistrar {

@@ -1,46 +1,45 @@
 package org.ys.security;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Service;
-import org.ys.common.constant.CoreMenuType;
+import org.ys.common.constant.RedisKeyContant;
 import org.ys.core.model.CoreMenu;
-import org.ys.core.model.CoreMenuExample;
-import org.ys.core.service.CoreMenuService;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
 
 /**
  * Created by yangyibo on 17/1/19.
  */
 @Service
+@SuppressWarnings("rawtypes")
 public class MyInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
-    @Autowired
-    private CoreMenuService coreMenuService;
+	@Autowired
+    private RedisTemplate redisTemplate ;
 
     private HashMap<String, Collection<ConfigAttribute>> map =null;
 
     /**
-     * 加载权限表中所有权限
+           * 加载权限表中所有权限
      */
-    public void loadResourceDefine(){
+    @SuppressWarnings("unchecked")
+	public void loadResourceDefine(){
         map = new HashMap<>();
         Collection<ConfigAttribute> array;
         ConfigAttribute cfg = null;
-        CoreMenuExample example = new CoreMenuExample();
-        example.createCriteria().andMenuTypeEqualTo(CoreMenuType.MENU_TYPE_PERMISSION);
-		List<CoreMenu> permissions = null;
-		try {
-			permissions = coreMenuService.queryCoreMenusByExample(example);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        List<CoreMenu> permissions = (List<CoreMenu>) redisTemplate.opsForList().leftPop(RedisKeyContant.CORE_MENU_ALL_PERMISSION);;
 		if(null != permissions && permissions.size() > 0) {
 	        for(CoreMenu coreMenu : permissions) {
 	            array = new ArrayList<>();

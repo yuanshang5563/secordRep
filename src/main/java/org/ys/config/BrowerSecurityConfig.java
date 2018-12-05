@@ -14,6 +14,11 @@ import org.ys.security.MyAuthenticationSuccessHandler;
 import org.ys.security.MyFilterSecurityInterceptor;
 import org.ys.security.MyUserDetailsService;
 
+/**
+ * spring security配置类
+ * @author Administrator
+ *
+ */
 @Configuration
 @EnableWebSecurity // 注解开启Spring Security的功能
 public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {

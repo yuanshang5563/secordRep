@@ -100,6 +100,12 @@ public class CoreDeptController {
 		return map;
 	}  
 	
+	/**
+	 * 删除方法
+	 * @param coreDeptId
+	 * @return
+	 * @throws Exception
+	 */
 	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_DEPT_DEL")
 	@RequestMapping("/deleteCoreDept")
 	@ResponseBody

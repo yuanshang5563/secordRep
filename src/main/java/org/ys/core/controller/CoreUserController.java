@@ -13,6 +13,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,6 +43,8 @@ public class CoreUserController {
 	
 	@Autowired
 	private CoreDeptService coreDeptService;
+	
+	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	@RequiredPermission(permissionName="列表页面",permission="ROLE_CORE_USER_LIST_PAGE")
 	@RequestMapping("/coreUserList")
@@ -74,7 +77,7 @@ public class CoreUserController {
 			if(null != existCoreRoles && existCoreRoles.size() > 0) {
 				for (CoreRole coreRole : coreRoles) {
 					if(!existCoreRoles.contains(coreRole)) {
-						coreRole.setRole(null);
+						coreRole.setCheckFlag(true);
 					}
 				}
 			}
@@ -114,6 +117,10 @@ public class CoreUserController {
 			String[] coreRoleArr = null;;
 			if(StringUtils.isNotEmpty(coreRoleIds)) {
 				coreRoleArr = coreRoleIds.trim().split(",");
+			}
+			String actionType = request.getParameter("actionType");
+			if(StringUtils.equals(actionType, "add") && StringUtils.isNotEmpty(coreUser.getPassword())) {
+				coreUser.setPassword(bCryptPasswordEncoder.encode(coreUser.getPassword().trim()));
 			}
 			coreUserService.saveOrUpdateCoreUserAndRoles(coreUser, coreRoleArr);
 			msg = "操作用户成功！";
@@ -241,7 +248,7 @@ public class CoreUserController {
 				coreUser = coreUserService.queryCoreUserById(Long.parseLong(coreUserId));
 			}
 			if(null != coreUser) {
-				coreUser.setPassword(password);
+				coreUser.setPassword(bCryptPasswordEncoder.encode(password));
 				coreUser.setModifiedTime(new Date());
 				coreUserService.updateById(coreUser);
 				msg = "重置成功！";

@@ -53,9 +53,6 @@ function validateRule() {
             },
             paramCode: {
                 required: true
-            },
-            paramValue: {
-                required: true
             }
         },
         messages: {
@@ -67,9 +64,6 @@ function validateRule() {
             },
             paramCode: {
                 required: icon + "请输入参数代码",
-            },
-            paramValue: {
-                required: icon + "请输入参数值",
             }
         }
     })

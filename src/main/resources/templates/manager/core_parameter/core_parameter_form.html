@@ -14,9 +14,6 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="ibox float-e-margins">
-					<div class="ibox-title">
-						<h5>   </h5>
-					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal m-t" id="coreParameterForm">
 							<div class="form-group">
@@ -29,12 +26,11 @@
 								<label class="col-sm-3 control-label">参数类型：</label>
 								<div class="col-sm-8">
 									<label class="radio-inline"> 
-										<input type="radio" name="paramType" value="sys"> 系统参数</input>
+										<input type="radio" name="paramType" value="sys" th:field="*{coreParameter.paramType}"> 系统参数</input>
 									</label> 
 									<label class="radio-inline"> 
-										<input type="radio" name="paramType" value="usr"> 用户参数</input>
+										<input type="radio" name="paramType" value="usr" th:field="*{coreParameter.paramType}"> 用户参数</input>
 									</label> 																		
-									<script>$("input[name='paramType'][value='${coreParameter.paramType}']").attr("checked",true); </script>
 								</div>
 							</div>
 							<div class="form-group">
@@ -52,19 +48,19 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">参数说明：</label>
 								<div class="col-sm-8">
-									<textarea id="paramDesc" name="paramDesc" rows="5" cols="63" class="form-control">${coreParameter.paramDesc}</textarea>
+									<textarea id="paramDesc" name="paramDesc" rows="5" cols="63" class="form-control" th:text="${coreParameter.paramDesc}"></textarea>
 								</div>
 							</div>																					
-							<div class="form-group" th:if="${actionType !='view'}">
+							<div class="form-group" th:if="${actionType =='view'}">
 								<label class="col-sm-3 control-label">创建时间：</label>
 								<div class="col-sm-8">
-									<input class="form-control" type="text" th:value="${coreParameter.createdTime}">
+									<input class="form-control" type="text" th:value="${#dates.format(coreParameter.createdTime, 'yyyy-MM-dd HH:mm:ss')}">
 								</div>
 							</div>
-							<div class="form-group" th:if="${actionType !='view'}">
+							<div class="form-group" th:if="${actionType =='view'}">
 								<label class="col-sm-3 control-label">修改时间：</label>
 								<div class="col-sm-8">
-									<input class="form-control" type="text" th:value="${coreParameter.modifiedTime}">
+									<input class="form-control" type="text" th:value="${#dates.format(coreParameter.modifiedTime, 'yyyy-MM-dd HH:mm:ss')}">
 								</div>
 							</div>							
 							<div class="form-group">
