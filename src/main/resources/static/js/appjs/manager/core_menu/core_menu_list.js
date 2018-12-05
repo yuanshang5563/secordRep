@@ -154,7 +154,7 @@ function reloadPermissions() {
         btn: ['确定', '取消']
     }, function () {
         $.ajax({
-            url: root + "/manager/core/CoreManagerController/reLoadPermissions",
+            url: prefix + "/reLoadPermissions",
             type: "post",
             success: function (data) {
                 if (data.success == 1) {

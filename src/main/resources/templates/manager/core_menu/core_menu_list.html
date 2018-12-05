@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
     <title>menuList</title>
 	<meta http-equiv="pragma" content="no-cache">
@@ -15,16 +15,12 @@
 			<div class="ibox">
 				<div class="ibox-body">
 					<div id="exampleToolbar" role="group" class="t-bar">
-						<shiro:hasPermission name="core:coreMenu:addAndEdit">
-						<button type="button" class="btn btn-primary" title="在根节点下添加菜单" onclick="add('0','add')">
+						<button type="button" class="btn btn-primary" title="在根节点下添加菜单" onclick="add('0','add')" sec:authorize="hasRole('ROLE_CORE_MENU_ADD_EDIT')">
 							<i class="fa fa-plus" aria-hidden="true"></i>添加
 						</button>
-						</shiro:hasPermission>
-						<shiro:hasRole name="super_admin">
-						<button type="button" class="btn btn-primary" onclick="reloadPermissions()">
-							<i class="fa fa-plus" aria-hidden="true"></i>加载权限
+						<button type="button" class="btn btn-primary" onclick="reloadPermissions()" sec:authorize="hasRole('ROLE_CORE_MENU_LOAD_PERMISSIONS')">
+							<i class="fa fa-plus" aria-hidden="true"></i>刷新权限
 						</button>	
-						</shiro:hasRole>					
 					</div>
 					<table id="menuTable" data-mobile-responsive="true">
 					</table>
@@ -41,16 +37,22 @@
 			</script>
 		</div>
 		<div>
+			<div sec:authorize="hasRole('ROLE_CORE_MENU_ADD_EDIT')">
 			<script type="text/javascript">
 				s_add_h = '';
 				s_edit_h = '';
 			</script>
+			</div>
+			<div sec:authorize="hasRole('ROLE_CORE_MENU_DEL')">
 			<script type="text/javascript">
 				s_remove_h = '';
 			</script>
+			</div>
+			<div sec:authorize="hasRole('ROLE_CORE_MENU_ADD_EDIT_PAGE')">
 			<script type="text/javascript">
 				s_view_h = '';
 			</script>		
+			</div>
 		</div>	
 	</div>
 </body>

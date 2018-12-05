@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
   	<head th:include="commons/header :: header"></head>
     <title>deptList</title>
@@ -16,11 +16,9 @@
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
 						<div id="deptTableToolbar" class="columns pull-left">
-							<shiro:hasPermission name="core:coreDept:addAndEdit">
-							<button type="button" class="btn btn-primary" title="在根节点下添加部门" onclick="add('0','add')">
+							<button type="button" class="btn btn-primary" title="在根节点下添加部门" onclick="add('0','add')" sec:authorize="hasRole('ROLE_CORE_DEPT_ADD_EDIT')">
 								<i class="fa fa-plus" aria-hidden="true"></i>添加
 							</button>
-							</shiro:hasPermission>
 						</div>
 	                    <div class="columns pull-right">
 	                        <button class="btn btn-success" onclick="queryTable()">查询</button>
@@ -44,16 +42,22 @@
 			</script>
 		</div>
 		<div>
+			<div sec:authorize="hasRole('ROLE_CORE_DEPT_ADD_EDIT')">
 			<script type="text/javascript">
 				s_add_h = '';
 				s_edit_h = '';
 			</script>
+			</div>
+			<div sec:authorize="hasRole('ROLE_CORE_DEPT_DEL')">
 			<script type="text/javascript">
 				s_remove_h = '';
 			</script>
+			</div>
+			<div sec:authorize="hasRole('ROLE_CORE_DEPT_ADD_EDIT_PAGE')">
 			<script type="text/javascript">
 				s_view_h = '';
-			</script>		
+			</script>	
+			</div>	
 		</div>	
 	</div>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
   	<head th:include="commons/header :: header"></head>
     <title>roleList</title>
@@ -15,13 +15,11 @@
 			<div class="ibox">
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
-						<shiro:hasPermission name="core:coreRole:addAndEdit">
 						<div class="columns pull-left">
-							<button type="button" class="btn  btn-primary" onclick="add()">
+							<button type="button" class="btn  btn-primary" onclick="add()" sec:authorize="hasRole('ROLE_CORE_ROLE_ADD_EDIT')">
 								<i class="fa fa-plus hidden" aria-hidden="true"></i>添加
 							</button>
 						</div>
-						</shiro:hasPermission>
 						<div class="columns pull-right">
 							<button class="btn btn-success" onclick="reLoad()">查询</button>
 						</div>
@@ -43,15 +41,21 @@
 			</script>
 		</div>
 		<div>
+			<div sec:authorize="hasRole('ROLE_CORE_ROLE_ADD_EDIT')">
 				<script type="text/javascript">
 					s_edit_h = '';
 				</script>
+			</div>
+			<div sec:authorize="hasRole('ROLE_CORE_ROLE_DEL')">	
 				<script type="text/javascript">
 					s_remove_h = '';
 				</script>
+			</div>
+			<div sec:authorize="hasRole('ROLE_CORE_ROLE_ADD_EDIT_PAGE')">	
 				<script type="text/javascript">
 					s_view_h = '';
-				</script>			
+				</script>		
+			</div>	
 		</div>
 	</div>
 </body>

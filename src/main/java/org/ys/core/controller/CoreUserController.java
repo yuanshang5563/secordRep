@@ -129,7 +129,7 @@ public class CoreUserController {
 		return map;
 	}  
 	
-	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_USER_ADD_DEL")
+	@RequiredPermission(permissionName="删除",permission="ROLE_CORE_USER_DEL")
 	@RequestMapping("/deleteCoreUser")
 	@ResponseBody
 	public Map<String,Object> deleteCoreUser(Long coreUserId)throws Exception {
