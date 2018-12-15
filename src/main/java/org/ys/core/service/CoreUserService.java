@@ -8,6 +8,9 @@ import org.ys.core.model.CoreDictionaries;
 import org.ys.core.model.CoreUser;
 import org.ys.core.model.CoreUserExample;
 
+/**
+ * 系统用户操作接口
+ */
 public interface CoreUserService {
 	/**
 	 * 根据id查询

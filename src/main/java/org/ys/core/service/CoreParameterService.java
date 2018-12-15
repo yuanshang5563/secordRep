@@ -8,6 +8,9 @@ import org.ys.core.model.CoreParameterExample;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 参数操作接口
+ */
 public interface CoreParameterService {
 	/**
 	 * 根据Id查询

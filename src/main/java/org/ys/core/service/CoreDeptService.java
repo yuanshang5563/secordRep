@@ -8,6 +8,9 @@ import org.ys.common.page.PageBean;
 import org.ys.core.model.CoreDept;
 import org.ys.core.model.CoreDeptExample;
 
+/**
+ * 部门操作接口
+ */
 public interface CoreDeptService {
 	/**
 	 * 根据id查询

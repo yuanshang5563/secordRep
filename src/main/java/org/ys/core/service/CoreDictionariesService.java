@@ -6,6 +6,9 @@ import org.ys.common.page.PageBean;
 import org.ys.core.model.CoreDictionaries;
 import org.ys.core.model.CoreDictionariesExample;
 
+/**
+ * 数据字典操作接口
+ */
 public interface CoreDictionariesService {
 	/**
 	 * 根据id查询
@@ -50,7 +53,7 @@ public interface CoreDictionariesService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<CoreDictionaries>queryCoreDictionariesByExample(CoreDictionariesExample example) throws Exception;
+	public List<CoreDictionaries> queryCoreDictionariesByExample(CoreDictionariesExample example) throws Exception;
 
 	/**
 	 * 根据指定条件分页
