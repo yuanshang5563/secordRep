@@ -1,16 +1,24 @@
 package org.ys.core.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.ys.common.constant.DictionariesGroupContant;
+import org.ys.common.constant.RedisKeyContant;
 import org.ys.common.page.PageBean;
 import org.ys.core.dao.CoreUserMapper;
 import org.ys.core.dao.CoreUserRoleMapper;
+import org.ys.core.model.CoreDictionaries;
 import org.ys.core.model.CoreUser;
 import org.ys.core.model.CoreUserExample;
 import org.ys.core.model.CoreUserRole;
+import org.ys.core.service.CoreDictionariesService;
 import org.ys.core.service.CoreUserService;
 
 import com.github.pagehelper.PageHelper;
@@ -23,6 +31,12 @@ public class CoreUserServiceImpl implements CoreUserService {
 	@Autowired
 	private CoreUserRoleMapper coreUserRoleMapper;
 
+	@Autowired
+	private CoreDictionariesService coreDictionariesService;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
+
 	@Override
 	public CoreUser queryCoreUserById(Long coreUserId) throws Exception {
 		if(null == coreUserId) {
@@ -32,31 +46,35 @@ public class CoreUserServiceImpl implements CoreUserService {
 	}
 
 	@Override
-	public void save(CoreUser coreUser) throws Exception {
+	public int save(CoreUser coreUser) throws Exception {
 		if(null != coreUser) {
-			coreUserMapper.insert(coreUser);
+			return coreUserMapper.insert(coreUser);
 		}
+		return 0;
 	}
 
 	@Override
-	public void updateById(CoreUser coreUser) throws Exception {
+	public int updateById(CoreUser coreUser) throws Exception {
 		if(null != coreUser) {
-			coreUserMapper.updateByPrimaryKey(coreUser);
+			return coreUserMapper.updateByPrimaryKey(coreUser);
 		}
+		return 0;
 	}
 
 	@Override
-	public void updateByExaple(CoreUser coreUser, CoreUserExample example) throws Exception {
+	public int updateByExaple(CoreUser coreUser, CoreUserExample example) throws Exception {
 		if(null != coreUser && null != example) {
-			coreUserMapper.updateByExample(coreUser, example);
+			return coreUserMapper.updateByExample(coreUser, example);
 		}
+		return 0;
 	}
 
 	@Override
-	public void delCoreUserById(Long coreUserId) throws Exception {
+	public int delCoreUserById(Long coreUserId) throws Exception {
 		if(null != coreUserId) {
-			coreUserMapper.deleteByPrimaryKey(coreUserId);
+			return coreUserMapper.deleteByPrimaryKey(coreUserId);
 		}
+		return 0;
 	}
 
 	@Override
@@ -99,4 +117,26 @@ public class CoreUserServiceImpl implements CoreUserService {
 		}
 	}
 
+	@Override
+	public Map<String,List<CoreDictionaries>> initDictionaries(){
+		Map<String,List<CoreDictionaries>> dictMap = new HashMap<>();
+		List<CoreDictionaries> dictList = (List<CoreDictionaries>) redisTemplate.opsForList().leftPop(RedisKeyContant.CORE_DICTIONARIES_GROUP+ DictionariesGroupContant.GROUP_SEX+":");
+		//如果缓存中没有就去数据库中找
+		if(null == dictList || dictList.size() > 0){
+			dictList = coreDictionariesService.listCoreDictionariesByDictGroupCode(DictionariesGroupContant.GROUP_SEX);
+		}
+		dictMap.put(DictionariesGroupContant.GROUP_SEX,dictList);
+		return dictMap;
+	}
+
+	@Override
+	public void convertCoreUsersDictionaries(List<CoreUser> coreUsers) {
+		if(null != coreUsers && coreUsers.size() > 0){
+			for (CoreUser coreUser : coreUsers) {
+				if(StringUtils.isNotEmpty(coreUser.getSex())){
+					coreUser.setSex(coreDictionariesService.getDictionariesValueByCode(coreUser.getSex()));
+				}
+			}
+		}
+	}
 }

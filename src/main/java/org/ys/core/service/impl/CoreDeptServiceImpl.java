@@ -34,31 +34,35 @@ public class CoreDeptServiceImpl implements CoreDeptService {
 	}
 
 	@Override
-	public void save(CoreDept coreDept) throws Exception {
+	public int save(CoreDept coreDept) throws Exception {
 		if(null != coreDept) {
-			coreDeptMapper.insert(coreDept);
+			return coreDeptMapper.insert(coreDept);
 		}
+		return 0;
 	}
 
 	@Override
-	public void updateById(CoreDept coreDept) throws Exception {
+	public int updateById(CoreDept coreDept) throws Exception {
 		if(null != coreDept) {
-			coreDeptMapper.updateByPrimaryKey(coreDept);
+			return coreDeptMapper.updateByPrimaryKey(coreDept);
 		}
+		return 0;
 	}
 
 	@Override
-	public void updateByExaple(CoreDept coreDept, CoreDeptExample example) throws Exception {
+	public int updateByExaple(CoreDept coreDept, CoreDeptExample example) throws Exception {
 		if(null != coreDept && null != example) {
-			coreDeptMapper.updateByExample(coreDept, example);
+			return coreDeptMapper.updateByExample(coreDept, example);
 		}
+		return 0;
 	}
 
 	@Override
-	public void delCoreDeptById(Long coreDeptId) throws Exception {
+	public int delCoreDeptById(Long coreDeptId) throws Exception {
 		if(null != coreDeptId) {
-			coreDeptMapper.deleteByPrimaryKey(coreDeptId);
+			return coreDeptMapper.deleteByPrimaryKey(coreDeptId);
 		}
+		return 0;
 	}
 
 	@Override

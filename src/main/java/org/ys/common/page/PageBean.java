@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 
+/**
+ *  分页类
+ * @param <T>
+ */
 public class PageBean<T> implements Serializable {
 	private static final long serialVersionUID = 7977838413801676264L;
 	
@@ -19,7 +23,6 @@ public class PageBean<T> implements Serializable {
      * 包装Page对象，因为直接返回Page对象，在JSON处理以及其他情况下会被当成List来处理，
      * 而出现一些问题。
      * @param list          page结果
-     * @param navigatePages 页码数量
      */
     public PageBean(List<T> list) {
         if (list instanceof Page) {

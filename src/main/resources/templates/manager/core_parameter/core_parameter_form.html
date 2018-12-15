@@ -25,12 +25,9 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">参数类型：</label>
 								<div class="col-sm-8">
-									<label class="radio-inline"> 
-										<input type="radio" name="paramType" value="sys" th:field="*{coreParameter.paramType}"> 系统参数</input>
-									</label> 
-									<label class="radio-inline"> 
-										<input type="radio" name="paramType" value="usr" th:field="*{coreParameter.paramType}"> 用户参数</input>
-									</label> 																		
+									<label class="radio-inline" th:each="paramVar : ${param_type}">
+										<input type="radio" name="paramType" th:value="${paramVar.dictCode}" th:field="*{coreParameter.paramType}" th:text="${paramVar.dictValue}">
+									</label>
 								</div>
 							</div>
 							<div class="form-group">

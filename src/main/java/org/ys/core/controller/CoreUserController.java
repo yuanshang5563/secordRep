@@ -21,13 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.DateTimeConverter;
 import org.ys.common.utils.RequsetUtils;
-import org.ys.core.model.CoreDept;
-import org.ys.core.model.CoreRole;
-import org.ys.core.model.CoreRoleExample;
-import org.ys.core.model.CoreUser;
-import org.ys.core.model.CoreUserExample;
+import org.ys.core.model.*;
 import org.ys.core.model.CoreUserExample.Criteria;
 import org.ys.core.service.CoreDeptService;
+import org.ys.core.service.CoreDictionariesService;
 import org.ys.core.service.CoreRoleService;
 import org.ys.core.service.CoreUserService;
 import org.ys.security.RequiredPermission;
@@ -43,6 +40,9 @@ public class CoreUserController {
 	
 	@Autowired
 	private CoreDeptService coreDeptService;
+
+	@Autowired
+	private CoreDictionariesService coreDictionariesService;
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
@@ -83,6 +83,13 @@ public class CoreUserController {
 			}
 		}
 		ModelAndView model = new ModelAndView("/manager/core_user/core_user_form");
+		Map<String, List<CoreDictionaries>> dictMap = coreUserService.initDictionaries();
+		if(null != dictMap && dictMap.size() > 0){
+			Set<String> dictMapKeys = dictMap.keySet();
+			for (String dictMapKey : dictMapKeys) {
+				model.addObject(dictMapKey,dictMap.get(dictMapKey));
+			}
+		}
 		model.addObject("coreUser", coreUser);
 		model.addObject("actionType", actionType);
 		model.addObject("coreRoles", coreRoles);
@@ -220,6 +227,8 @@ public class CoreUserController {
 		}else {
 			coreUsers = new ArrayList<CoreUser>();
 		}
+		//转换字典码
+		coreUserService.convertCoreUsersDictionaries(coreUsers);
 		Map<String,Object> maps = new HashMap<String,Object>();
 		maps.put("total", total);
 		maps.put("rows", coreUsers);

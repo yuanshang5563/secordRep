@@ -49,15 +49,9 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">性别:</label>
 								<div class="col-sm-8">
-									<label class="radio-inline"> 
-										<input type="radio" name="sex" value="sex.0" th:field="*{coreUser.sex}"> 未知</input>
-									</label> 
-									<label class="radio-inline"> 
-										<input type="radio" name="sex" value="sex.1" th:field="*{coreUser.sex}"> 男</input>
+									<label class="radio-inline" th:each="sexVar : ${sex}">
+										<input type="radio" name="sex" th:value="${sexVar.dictCode}" th:field="*{coreUser.sex}" th:text="${sexVar.dictValue}">
 									</label>
-									<label class="radio-inline"> 
-										<input type="radio" name="sex" value="sex.2" th:field="*{coreUser.sex}"> 女</input>
-									</label>	
 								</div>
 							</div>
 							<div class="form-group">
