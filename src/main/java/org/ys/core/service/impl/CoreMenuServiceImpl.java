@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.ys.common.constant.CoreMenuTypeContant;
+import org.ys.common.constant.CoreMenuContant;
 import org.ys.common.domain.Tree;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.BuildTreeUtil;
@@ -127,7 +127,7 @@ public class CoreMenuServiceImpl implements CoreMenuService{
 		List<Tree<CoreMenu>> trees = new ArrayList<Tree<CoreMenu>>();
 		List<CoreMenu> menus = coreMenuMapper.listCoreMenusByUserId(coreUserId);
 		for (CoreMenu menu : menus) {
-			if(menu.getMenuType() == CoreMenuTypeContant.MENU_TYPE_PERMISSION || menu.getCoreMenuId() == 0l) {
+			if(menu.getMenuType() == CoreMenuContant.MENU_TYPE_PERMISSION || menu.getCoreMenuId() == 0l) {
 				continue;
 			}
 			Tree<CoreMenu> tree = new Tree<CoreMenu>();

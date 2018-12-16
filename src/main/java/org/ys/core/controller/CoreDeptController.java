@@ -26,6 +26,9 @@ import org.ys.core.model.CoreDeptExample.Criteria;
 import org.ys.core.service.CoreDeptService;
 import org.ys.security.RequiredPermission;
 
+/**
+ * 部门控制类
+ */
 @Controller
 @RequestMapping("/manager/core/CoreDeptController")
 public class CoreDeptController {

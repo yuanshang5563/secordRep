@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.ys.common.constant.CoreMenuTypeContant;
+import org.ys.common.constant.CoreMenuContant;
 import org.ys.common.constant.RedisKeyContant;
 import org.ys.common.domain.Tree;
 import org.ys.common.page.PageBean;
@@ -242,7 +242,7 @@ public class CoreMenuController {
 			//一次找出所有菜单权限
 			Map<String,CoreMenu> existParentMenu = new HashMap<String,CoreMenu>();
 			CoreMenuExample example = new CoreMenuExample();
-			example.createCriteria().andMenuTypeEqualTo(CoreMenuTypeContant.MENU_TYPE_MENU);
+			example.createCriteria().andMenuTypeEqualTo(CoreMenuContant.MENU_TYPE_MENU);
 			List<CoreMenu> parentMenuList = coreMenuService.queryCoreMenusByExample(example);
 			if(null != parentMenuList && parentMenuList.size() > 0) {
 				for (CoreMenu parentMenu : parentMenuList) {
@@ -257,7 +257,7 @@ public class CoreMenuController {
 			//找到所有权限
 			Map<String,CoreMenu> existPermissions = new HashMap<String,CoreMenu>();
 			example.clear();
-			example.createCriteria().andMenuTypeEqualTo(CoreMenuTypeContant.MENU_TYPE_PERMISSION);
+			example.createCriteria().andMenuTypeEqualTo(CoreMenuContant.MENU_TYPE_PERMISSION);
 			List<CoreMenu> buttonList = coreMenuService.queryCoreMenusByExample(example);
 			if(null != buttonList && buttonList.size() > 0) {
 				for (CoreMenu button : buttonList) {
@@ -291,7 +291,7 @@ public class CoreMenuController {
 							buttonMenu.setParentCoreMenuId(parentMenu.getCoreMenuId());
 						}
 						buttonMenu.setPermission(permission);
-						buttonMenu.setMenuType(CoreMenuTypeContant.MENU_TYPE_PERMISSION);
+						buttonMenu.setMenuType(CoreMenuContant.MENU_TYPE_PERMISSION);
 						buttonMenu.setMenuName(permissionName);
 						if(permission.contains("LIST")) {
 							buttonMenu.setOrderNum(0);

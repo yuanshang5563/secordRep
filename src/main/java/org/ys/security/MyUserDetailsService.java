@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.ys.common.constant.CoreMenuTypeContant;
+import org.ys.common.constant.CoreMenuContant;
 import org.ys.core.model.CoreMenu;
 import org.ys.core.model.CoreUser;
 import org.ys.core.model.CoreUserExample;
@@ -49,7 +49,7 @@ public class MyUserDetailsService implements UserDetailsService {
 			if(null != coreMenuList && coreMenuList.size() > 0) {
 				authList = new ArrayList<>();
 				for (CoreMenu coreMenu : coreMenuList) {
-					if(CoreMenuTypeContant.MENU_TYPE_PERMISSION.equals(coreMenu.getMenuType()) && StringUtils.isNotEmpty(coreMenu.getPermission())) {
+					if(CoreMenuContant.MENU_TYPE_PERMISSION.equals(coreMenu.getMenuType()) && StringUtils.isNotEmpty(coreMenu.getPermission())) {
 						authList.add(new SimpleGrantedAuthority(coreMenu.getPermission()));
 					}
 				}

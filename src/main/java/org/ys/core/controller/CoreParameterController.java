@@ -1,10 +1,6 @@
 package org.ys.core.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.ys.common.page.PageBean;
 import org.ys.common.utils.DateTimeConverter;
 import org.ys.common.utils.RequsetUtils;
+import org.ys.core.model.CoreDictionaries;
 import org.ys.core.model.CoreParameter;
 import org.ys.core.model.CoreParameterExample;
 import org.ys.core.model.CoreParameterExample.Criteria;
@@ -49,6 +46,13 @@ public class CoreParameterController {
 			coreParameter = coreParameterService.queryCoreParameterById(coreParamId);
 		}
 		ModelAndView model = new ModelAndView("/manager/core_parameter/core_parameter_form");
+		Map<String, List<CoreDictionaries>> dictMap = coreParameterService.initDictionaries();
+		if(null != dictMap && dictMap.size() > 0){
+			Set<String> dictMapKeys = dictMap.keySet();
+			for (String dictMapKey : dictMapKeys) {
+				model.addObject(dictMapKey, dictMap.get(dictMapKey));
+			}
+		}
 		model.addObject("actionType", actionType);
 		model.addObject("coreParameter", coreParameter);
 		return model;
@@ -186,6 +190,7 @@ public class CoreParameterController {
 		}else {
 			coreParameters = new ArrayList<CoreParameter>();
 		}
+		coreParameterService.convertCoreParametersDictionaries(coreParameters);
 		Map<String,Object> maps = new HashMap<String,Object>();
 		maps.put("total", total);
 		maps.put("rows", coreParameters);
